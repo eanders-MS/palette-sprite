@@ -10,6 +10,7 @@ namespace sprites {
 
         public setPaletteMap(map: number[]) {
             this.map = map.slice();
+            this.map[0] = 0; // don't remap transparency
             for (let i = this.map.length; i < 16; ++i) {
                 this.map[i] = i;
             }
@@ -27,7 +28,7 @@ namespace sprites {
         //% flag.defl=SpriteFlag.AutoDestroy
         //% help=sprites/sprite/set-flag
         public setPaletteMapColor(src: number, dst: number) {
-            if (src < 0 || src > 15 || dst < 0 || dst > 15) return;
+            if (src < 1 || src > 15 || dst < 1 || dst > 15) return;
             this.map[src] = dst;
         }
 
@@ -40,7 +41,7 @@ namespace sprites {
             const l = Math.floor(this.left - ox);
             const t = Math.floor(this.top - oy);
 
-            image.drawPaletteMappedImage(image.screenImage(), this.image, this.map, l, t, true)
+            image.drawPaletteMappedImage(image.screenImage(), this.image, this.map, l, t, true);
         }
     }
 
